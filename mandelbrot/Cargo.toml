@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["lazrossi <lazrossi@student.42.fr>"]
 
 [dependencies]
+num = "0.2.0"
