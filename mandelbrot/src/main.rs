@@ -23,6 +23,14 @@ fn  escape_time(c: Complex<f64>, limit: u32) -> Option<u32> {
 
 use std::str::FromStr;
 
+/// Parse the string 's' as a coordinate pair, like "400x600", or "1.0,0.5"
+///
+/// Specficifically, 's' should have the form <left><sep><right> where <sep> is
+/// the character given by the 'separator' argument, and <left> and <right> are
+/// both strings that can be parsed by 'T::from_str'
+///
+/// If 's' has the proper form, return 'Some<(x, y)>'. If it doesn't parse 
+/// correctly, return 'None'
 fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
     match s.find(separator) {
         None => None,
@@ -32,6 +40,15 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
                 _ => None
             }
         }
+    }
+}
+
+/// Parse a pair of floating-point numbers separated by a comma as a Complex
+/// number.
+fn parse_complex(s: &str) ->Option<Complex<f64>> {
+    match parse_pair(s, ',') {
+        Some((re, im)) =>Some(Complex { re, im}),
+        None => None
     }
 }
 
