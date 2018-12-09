@@ -84,15 +84,15 @@ fn pixel_to_point(bounds: (usize, usize),
 fn render(pixels: &mut [u8],
           bounds: (usize, usize),
           upper_left: Complex<f64>,
-          lower_right: Complex<f64> )
+          lower_right: Complex<f64>)
 {
     assert!(pixels.len() == bounds.0 * bounds.1);
 
     for row in 0. .. bounds.1 {
         for column in 0 .. bounds.0 {
-            let point = pixel_to_point(bounds, (column, row),
+            let point = pixel_to_point(bounds, (column, row as usize),
                                         upper_left, lower_right);
-            pixels[row * bounds.0 + column] = 
+            pixels[(row * bounds.0 as f64 + column as f64) as usize] = 
                 match escape_time(point, 255) {
                     None => 0,
                     Some(count) => 255 - count as u8
