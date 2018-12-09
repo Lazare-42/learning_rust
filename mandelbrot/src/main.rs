@@ -88,11 +88,11 @@ fn render(pixels: &mut [u8],
 {
     assert!(pixels.len() == bounds.0 * bounds.1);
 
-    for row in 0. .. bounds.1 {
+    for row in 0 .. bounds.1 {
         for column in 0 .. bounds.0 {
-            let point = pixel_to_point(bounds, (column, row as usize),
+            let point = pixel_to_point(bounds, (column, row),
                                         upper_left, lower_right);
-            pixels[(row * bounds.0 as f64 + column as f64) as usize] = 
+            pixels[(row as f64 * bounds.0 as f64 + column as f64) as usize] = 
                 match escape_time(point, 255) {
                     None => 0,
                     Some(count) => 255 - count as u8
